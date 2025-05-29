@@ -9,6 +9,7 @@ When you run the executable, you can see three options:
 * 1 ) Play
 * 2 ) History
 * 3 ) Exit
+
 You can choose one by typing the number of the option and press Enter.
 
 >#### ♥️♠️ Gameplay
