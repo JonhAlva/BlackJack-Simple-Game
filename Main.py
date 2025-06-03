@@ -16,15 +16,17 @@ globalDealerCardList = []
 HistoryList = []
 ContadorD = DealerCount.DealerCount()
 ContadorP = PlayerCount.PlayerCount()
+PlayerName = "Player"
 
 #Juego de blackjack simple
 def Mensaje():
-    print(" *-*-*-*-*-*-*-*-* BLACKJACK GAME *-*-*-*-*-*-*-*-* ")
-    print("                     Version 1.2                    \n")
-    print(" === === === === = TYPE AN OPTION = === === === === ")
+    print(" █▄▀▄▀▄▀▄▀▄▀▄▀▄▀█  BLACKJACK GAME  █▀▄▀▄▀▄▀▄▀▄▀▄▀▄█ ")
+    print("                     Version 1.3                    \n")
+    print(" === === === === » TYPE AN OPTION « === === === === ")
     print("             1.         Play            ")
     print("             2.        History          ")
-    print("             3.         Exit            ")
+    print("             3.       Change Name       ")
+    print("             4.         Exit            ")
     print(" === === === === === === === === === === === === ===")
 
 def randomSymbol():
@@ -120,22 +122,22 @@ def AnotherPlay():
 def DefeatMessage():
     print(" ■ » » » » » » YOU LOSE « « « « « « ■ ")
     print(f"┌ Dealer Count: {ContadorD.count}")
-    print(f"└ Player Count: {ContadorP.count}" + "\n")
-    HistoryItem = History.History(ContadorD.count, ContadorP.count, "DEFEAT")
+    print(f"└ {PlayerName} Count: {ContadorP.count}" + "\n")
+    HistoryItem = History.History(ContadorD.count, ContadorP.count, "DEFEAT", PlayerName)
     HistoryList.append(HistoryItem)
 
 def VictoryMessage():
     print(" ■ » » » » » » YOU WIN « « « « « « ■ ")
     print(f"┌ Dealer Count: {ContadorD.count}")
-    print(f"└ Player Count: {ContadorP.count}" + "\n")
-    HistoryItem = History.History(ContadorD.count, ContadorP.count, "VICTORY")
+    print(f"└ {PlayerName} Count: {ContadorP.count}" + "\n")
+    HistoryItem = History.History(ContadorD.count, ContadorP.count, "VICTORY ", PlayerName)
     HistoryList.append(HistoryItem)
 
 def DrawMessage():
     print(" ■ » » » » » » DRAW « « « « « « ■ ")
     print(f"┌ Dealer Count: {ContadorD.count}")
-    print(f"└ Player Count: {ContadorP.count}" + "\n")
-    HistoryItem = History.History(ContadorD.count, ContadorP.count, "DRAW")
+    print(f"└ {PlayerName} Count: {ContadorP.count}" + "\n")
+    HistoryItem = History.History(ContadorD.count, ContadorP.count, "DRAW", PlayerName)
     HistoryList.append(HistoryItem)
 
 os.system("cls")
@@ -148,24 +150,24 @@ while flag == True:
         #! Primera Mano ----------------------------------------------------------------------
         os.system("cls")
         print("////////////////////////////////////////////////////////////////////////" + "\n")
-        print(" DEALER HAND ----------------------------------- ")
+        print(" DEALER HAND ══════════════════════════════════════════════ ")
         CartaDealer()
         globalDealerCardList.append("║  ?  ║")
         DealerResult = " ".join(globalDealerCardList)
         print(DealerResult + "\n")
-        print(" YOUR HAND ------------------------------------- ")
+        print(" YOUR HAND ════════════════════════════════════════════════ ")
         CartaPlayer() #Genera una nueva carta para el player y la añade a su lista
         CartaPlayer()
         PlayerResult = " ".join(globalPlayerCardList)
         print(PlayerResult + "\n")
         print(f"┌ Dealer Count: {ContadorD.count}")
-        print(f"└ Player Count: {ContadorP.count}" + "\n")
+        print(f"└ {PlayerName} Count: {ContadorP.count}" + "\n")
         print("////////////////////////////////////////////////////////////////////////")
         #!--------------------------------------------------------------------------------------
 
         while ContadorP.count <= 21:
 
-            print(" ■ » » 1. Stand ■■ 2. Card « « ■ ")
+            print(" ■ » » 1. STAND ■■ 2. HIT « « ■ ")
             Choice = int(input())
 
             #! STAND ----------------------------------------------------------------------------------------------------------
@@ -176,10 +178,10 @@ while flag == True:
                 #* Si al "voltear" la primera carta ya supera la mano del jugador automaticamente pierde
                 if ContadorP.count < ContadorD.count:
                     print("////////////////////////////////////////////////////////////////////////" + "\n")
-                    print(" DEALER HAND ----------------------------------- ")
+                    print(" DEALER HAND ══════════════════════════════════════════════ ")
                     DealerResult = " ".join(globalDealerCardList)
                     print(DealerResult + "\n")
-                    print(" YOUR HAND ------------------------------------- ")
+                    print(" YOUR HAND ════════════════════════════════════════════════ ")
                     print(PlayerResult + "\n")
                     DefeatMessage()
                     print("////////////////////////////////////////////////////////////////////////")
@@ -192,10 +194,10 @@ while flag == True:
                             break
                 
                 print("////////////////////////////////////////////////////////////////////////" + "\n")
-                print(" DEALER HAND ----------------------------------- ")
+                print(" DEALER HAND ══════════════════════════════════════════════ ")
                 DealerResult = " ".join(globalDealerCardList)
                 print(DealerResult + "\n")
-                print(" YOUR HAND ------------------------------------- ")
+                print(" YOUR HAND ════════════════════════════════════════════════ ")
                 print(PlayerResult + "\n")
 
                 if ContadorD.count == ContadorP.count:
@@ -204,10 +206,10 @@ while flag == True:
 
                 if ContadorD.count > ContadorP.count and ContadorD.count < 21 or ContadorD.count == 21:
                     DefeatMessage()
-                    #* Easter Egg ---
+                    #* ---
                     if len(globalDealerCardList) >= 6:
                         print(" Oh boy, are you okey?... ")
-                    # ---
+                    #* ---
                     break
 
                 if ContadorD.count > 21:
@@ -215,7 +217,7 @@ while flag == True:
                     break
 
                 print(f"┌ Dealer Count: {ContadorD.count}")
-                print(f"└ Player Count: {ContadorP.count}" + "\n")
+                print(f"└ {PlayerName} Count: {ContadorP.count}" + "\n")
 
                 print("////////////////////////////////////////////////////////////////////////")
 
@@ -223,10 +225,10 @@ while flag == True:
             elif Choice == 2:
                 os.system("cls")
                 print("////////////////////////////////////////////////////////////////////////" + "\n")
-                print(" DEALER HAND ----------------------------------- ")
+                print(" DEALER HAND ══════════════════════════════════════════════ ")
                 DealerResult = " ".join(globalDealerCardList)
                 print(DealerResult + "\n")
-                print(" YOUR HAND ------------------------------------- ")
+                print(" YOUR HAND ════════════════════════════════════════════════ ")
                 CartaPlayer()
                 PlayerResult = " ".join(globalPlayerCardList)
                 print(PlayerResult + "\n")
@@ -245,7 +247,7 @@ while flag == True:
                     break
 
                 print(f"┌ Dealer Count: {ContadorD.count}")
-                print(f"└ Player Count: {ContadorP.count}" + "\n")
+                print(f"└ {PlayerName} Count: {ContadorP.count}" + "\n")
 
                 print("////////////////////////////////////////////////////////////////////////")
 
@@ -255,7 +257,7 @@ while flag == True:
     elif option == 2:
         os.system("cls")
         if len(HistoryList) == 0:
-            print("     * * * * THERE ARE NO MATCHES YET * * * * \n")
+            print("     ? ¿ ? ¿ - THERE ARE NO MATCHES YET - ? ¿ ? ¿ \n")
         else:
             contador = 0
             for partidas in HistoryList:
@@ -263,11 +265,19 @@ while flag == True:
                 print(contador, partidas)
             input("\n -> Press Enter to Return")
             os.system("cls")
+    
     elif option == 3:
+        PlayerName = input("\n -> Type new Name: ")
         os.system("cls")
-        print(" * * Thanks for Playing * * ")
+        print(" ▀ ▄ ▀ ▄ ▀ NAME CHANGED SUCCESSFULLY ▀ ▄ ▀ ▄ ▀ ")
+        time.sleep(1.5)
+        os.system("cls")
+    
+    elif option == 4:
+        os.system("cls")
+        print(" ♥ ♦ ♣ ♠ - Thanks for Playing - ♠ ♣ ♦ ♥ ")
         time.sleep(2)
         flag = False
     else:
         os.system("cls")
-        print("         * * * * * INVALID INPUT * * * * * \n")
+        print("         Ø X Ø X Ø X Ø - INVALID INPUT - Ø X Ø X Ø X Ø \n")
